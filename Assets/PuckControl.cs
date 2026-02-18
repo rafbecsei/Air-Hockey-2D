@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class Puck : MonoBehaviour
-{
+{   
     private Rigidbody2D puck;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -13,25 +13,33 @@ public class Puck : MonoBehaviour
     void GoPuck(){                      
         float rand = Random.Range(0, 2);
         if(rand < 1){
-            puck.AddForce(new Vector2(0, 25));
+            puck.AddForce(new Vector2(0, 7), ForceMode2D.Impulse);
         } else {
-            puck.AddForce(new Vector2(0, -25));
+            puck.AddForce(new Vector2(0, -7), ForceMode2D.Impulse);
         }
     }
 
     void OnCollisionEnter2D (Collision2D coll) {
-        if(coll.collider.CompareTag("Player")){
-            Vector2 vel;
-            vel.x = puck.velocity.x;
-            vel.y = (puck.velocity.y) + (coll.collider.attachedRigidbody.velocity.y);
-            puck.velocity = vel;
+        if(coll.collider.CompareTag("Player") || coll.collider.CompareTag("Opponent")){
+            
+            Rigidbody2D mallet = coll.collider.attachedRigidbody;
 
-            puck.velocity *= 1.01f;
+            if(mallet != null){
+                Vector2 dir;
+                if(mallet.linearVelocity.magnitude > 0.1f){
+                    dir = mallet.linearVelocity.normalized;
+                }
+                else{
+                    dir = (transform.position - coll.transform.position).normalized;
+                }
+                float forca = 15f;
+                puck.linearVelocity = dir * forca;
+            }
         }
     }
 
     void ResetBall(){
-            puck.velocity = Vector2.zero;
+            puck.linearVelocity = Vector2.zero;
             transform.position = Vector2.zero;
         }
 
