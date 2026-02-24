@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class Puck : MonoBehaviour
 {   
+
+    public AudioSource source;
+    public AudioClip malletHitSound;
+    public AudioClip wallHitSound;
+    public AudioClip GoalSound;
+
     private Rigidbody2D puck;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         puck = GetComponent<Rigidbody2D>(); 
+        source = GetComponent<AudioSource>();
         Invoke("GoPuck", 2);
     }
 
@@ -23,6 +30,7 @@ public class Puck : MonoBehaviour
         if(coll.collider.CompareTag("Player") || coll.collider.CompareTag("Opponent")){
             
             Rigidbody2D mallet = coll.collider.attachedRigidbody;
+            source.PlayOneShot(malletHitSound);
 
             if(mallet != null){
                 Vector2 dir;
@@ -35,6 +43,15 @@ public class Puck : MonoBehaviour
                 float forca = 15f;
                 puck.linearVelocity = dir * forca;
             }
+        }
+        else if(coll.collider.CompareTag("Wall")){
+            source.PlayOneShot(wallHitSound);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D coll){
+        if(coll.CompareTag("Gol")){
+            source.PlayOneShot(GoalSound);
         }
     }
 
