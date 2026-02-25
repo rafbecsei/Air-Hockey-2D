@@ -20,9 +20,9 @@ public class Puck : MonoBehaviour
     void GoPuck(){                      
         float rand = Random.Range(0, 2);
         if(rand < 1){
-            puck.AddForce(new Vector2(0, 7), ForceMode2D.Impulse);
+            puck.AddForce(new Vector2(0, 3), ForceMode2D.Impulse);
         } else {
-            puck.AddForce(new Vector2(0, -7), ForceMode2D.Impulse);
+            puck.AddForce(new Vector2(0, -3), ForceMode2D.Impulse);
         }
     }
 
@@ -40,7 +40,7 @@ public class Puck : MonoBehaviour
                 else{
                     dir = (transform.position - coll.transform.position).normalized;
                 }
-                float forca = 15f;
+                float forca = 13f;
                 puck.linearVelocity = dir * forca;
             }
         }

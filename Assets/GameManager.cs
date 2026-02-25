@@ -25,8 +25,8 @@ public class GameManager : MonoBehaviour
 
     void OnGUI () {
         GUI.skin = layout;
-        GUI.Label(new Rect(Screen.width / 2 - 150 - 12 + 330, 20, 100, 100), "" + PlayerScore1);
-        GUI.Label(new Rect(Screen.width / 2 + 150 + 12 + 330, 20, 100, 100), "" + PlayerScore2);
+        GUI.Label(new Rect(Screen.width / 2 - 150 - 12 - 130, 20, 100, 100), "" + PlayerScore1);
+        GUI.Label(new Rect(Screen.width / 2 - 150 - 12 + 340, 20, 100, 100), "" + PlayerScore2);
 
         if (GUI.Button(new Rect(Screen.width / 2 - 60 + 355, 35, 120, 53), "RESTART"))
         {
